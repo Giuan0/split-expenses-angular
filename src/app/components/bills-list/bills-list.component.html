@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="table">
+        <div class="header">
+            <div *ngIf="room" class="room">
+                {{room?.name}}
+            </div>
+            <div *ngIf="!room" class="room">
+                Welcome!
+            </div>
+            
+            <div class="button-t">
+                <button mat-button [disabled]="!room" (click)="openDialog()">Add a bill</button>
+            </div>
+        </div>
+
+
+        <div class="no-data" *ngIf="data?.bills?.length == 0">
+            No pedding bills
+        </div>
+        <div class="no-data" *ngIf="!data">
+            Select a room!
+        </div>
+        <div class="item" *ngFor="let item of data?.bills">
+            <div class="description">
+                {{item.description}}
+            </div>
+            <div class="paid">
+                <div *ngIf="item.isOwner; else notOwnerPaid">
+                    you paid <b>{{item.paid | currency:'R$'}}</b>
+                </div>
+                
+                <ng-template #notOwnerPaid>
+                    {{item.ownerName}} paid <b>{{item.paid | currency:'R$'}}</b>
+                </ng-template>
+                
+            </div>
+            <div class="lent">
+                <div *ngIf="item.isOwner; else notOwnerLent">
+                    you lent <b class="lented">{{item.lent | currency:'R$'}}</b>
+                </div>
+                
+                <ng-template #notOwnerLent>
+                    {{item.ownerName}} lent you <b class="lentedBy">{{item.owes | currency:'R$'}}</b>
+                </ng-template>
+
+            </div>
+        </div>
+        
+    </div>
+    <div class="users">
+        <app-simple-list (plussButtonAction)="joiningUser=true" class="app-simple-list-test" title="Participants" [items]="data?.participants"></app-simple-list>
+        <div *ngIf="joiningUser" class="joining-user">
+            <app-simple-form (confirmEvent)="enrollUser($event)" (cancelEvent)="joiningUser=false" title="New user" placeholder="user email"></app-simple-form>
+        </div>
+    </div>
+</div>

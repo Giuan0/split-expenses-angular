@@ -1,0 +1,14 @@
+<div>
+  <div class="header">
+      {{title}}
+  </div>
+  <div class="form">
+      <mat-form-field>
+          <input matInput [placeholder]="placeholder" [(ngModel)]="input">
+      </mat-form-field>
+      <div class="confirm-button">
+        <button (click)="emitCancelEvent()" mat-button>Cancel</button>      
+        <button (click)="emitConfirmEvent()" mat-button>Ok</button>
+      </div>
+  </div>
+</div>

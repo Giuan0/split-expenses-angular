@@ -1,0 +1,12 @@
+.register-room {
+    margin-top: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    .room-list{
+        padding-right: 10px;
+        width: 200px;
+    }
+}

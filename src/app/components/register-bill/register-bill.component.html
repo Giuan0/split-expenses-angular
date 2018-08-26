@@ -1,0 +1,53 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="title">
+    Add bill
+</div>
+<div [formGroup]="registerForm">
+    <div formGroupName="purchase">
+        <mat-form-field class="form-field">
+            <input  formControlName="description" matInput placeholder="Description*">
+        </mat-form-field>
+    
+        <mat-form-field class="form-field">
+            <input formControlName="total" matInput placeholder="Total">
+        </mat-form-field>
+
+    </div>
+
+    <div formGroupName="purchase" style="display:inline">
+        <mat-form-field class="form-field">
+            <input formControlName="local" matInput placeholder="Local">
+        </mat-form-field>
+    </div>
+
+    <!-- <mat-form-field class="form-field">
+        <mat-select placeholder="Room" disabled=true>
+            <mat-option *ngFor="let room of rooms" [value]="room">
+            {{room}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+    <mat-form-field  class="form-field">
+        <mat-select formControlName="ownerId" placeholder="Owner*">
+            <mat-option *ngFor="let user of users" [value]="user.id">
+            {{user.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="participants-title">
+        Participants*
+    </div>
+    <mat-divider></mat-divider>
+    <mat-selection-list formControlName="usersId">
+        <mat-list-option *ngFor="let user of users" [value]="user.id">
+            {{user.name}}
+        </mat-list-option>
+    </mat-selection-list>
+
+    <div class="confirm-footer">
+        <button mat-raised-button (click)="onNoClick()">Cancel</button>
+        <button [disabled]=!registerForm.valid mat-raised-button (click)="submit(registerForm.value)">Save</button>
+    </div>
+</div>
